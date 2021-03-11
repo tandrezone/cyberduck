@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\CompanyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,10 +16,16 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Auth::routes();
-Route::get('/', function () {
-    return view('test');
-})->middleware('auth');;
+Auth::routes(['register' => false]);
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/', function () {
+        return view('test');
+    });
+    Route::resource('employees', EmployeeController::class);
+    Route::resource('companies', CompanyController::class);
+});
+
 
 /**
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
