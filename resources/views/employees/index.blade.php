@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('admin_template')
 
 @section('content')
     <div class="row">
@@ -36,7 +36,7 @@
                 <td>{{ $employee->last_name }}</td>
                 <td>{{ $employee->email }}</td>
                 <td>{{ $employee->phone }}</td>
-                <td>{{ $employee->company }}</td>
+                <td>{{ $employee->company->name }}</td>
                 <td>
                     <form action="{{ route('employees.destroy', $employee->id) }}" method="POST">
 

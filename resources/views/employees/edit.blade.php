@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('admin_template')
 
 @section('content')
     <div class="row">
@@ -26,37 +26,40 @@
     <form action="{{ route('employees.update', $employee->id) }}" method="POST">
         @csrf
         @method('PUT')
-
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>First Name:</strong>
-                    <input type="text" name="first_name" value="{{ $employee->first_name }}" class="form-control" placeholder="First Name">
+                    <input type="text" name="first_name" class="form-control" placeholder="First Name" value="{{ $employee->first_name }}" maxlength="255">
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Last Name:</strong>
-                    <input type="text" name="last_name" value="{{ $employee->last_name }}" class="form-control" placeholder="Last Name">
+                    <input type="text" name="last_name" class="form-control" placeholder="Last Name" maxlength="255" value="{{ $employee->last_name }}">
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Email:</strong>
-                    <textarea class="form-control" style="height:50px" name="email"
-                              placeholder="Email">{{ $employee->email }}</textarea>
+                    <input type="email" name="email" class="form-control" placeholder="Email" maxlength="255" value="{{ $employee->email }}">
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Phone:</strong>
-                    <input type="text" name="phone" class="form-control" placeholder="Phone"
-                           value="{{ $employee->phone }}">
+                    <input type="text" name="phone" class="form-control" placeholder="Phone" maxlength="20" value="{{ $employee->phone }}">
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Company:</strong>
+                    <select class="form-control" name="company_id">
+                        <option>Choose...</option>
+                        @foreach($companies as $company)
+                            <option value="{{ $company->id }}" @if($company->id == $employee->company->id) selected @endif>{{ $company->name }}</option>
+                        @endforeach
+                    </select>
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 text-center">

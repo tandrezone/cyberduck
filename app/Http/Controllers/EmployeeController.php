@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Company;
 use App\Models\Employee;
-use Illuminate\Http\Request;
+use App\Http\Requests\StoreUpdateEmployeeRequest;
 
 class EmployeeController extends Controller
 {
@@ -14,7 +15,7 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        $employee = Employee::latest()->paginate(10);
+        $employees = Employee::latest()->paginate(10);
 
         return view('employees.index', compact('employees'))
             ->with('i', (request()->input('page', 1) - 1) * 10);
@@ -27,7 +28,8 @@ class EmployeeController extends Controller
      */
     public function create()
     {
-        return view('employees.create');
+        $companies = Company::all();
+        return view('employees.create', compact('companies'));
     }
 
     /**
@@ -36,17 +38,17 @@ class EmployeeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUpdateEmployeeRequest $request)
     {
-        $request->validate([
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'email' => 'required',
-            'phone' => 'required',
-            'company' => 'required'
-        ]);
+        $validated = $request->validated();
 
-        Employee::create($request->all());
+        $employee = new Employee();
+        $employee->first_name = $validated['first_name'];
+        $employee->last_name = $validated['last_name'];
+        $employee->email = $validated['email'];
+        $employee->phone = $validated['phone'];
+        $employee->company_id = $validated['company_id'];
+        $employee->save();
 
         return redirect()->route('employees.index')
             ->with('success', 'Employee created successfully.');
@@ -71,7 +73,8 @@ class EmployeeController extends Controller
      */
     public function edit(Employee $employee)
     {
-        return view('employees.edit', compact('employee'));
+        $companies = Company::all();
+        return view('employees.edit', compact('employee','companies'));
     }
 
     /**
@@ -81,15 +84,8 @@ class EmployeeController extends Controller
      * @param  \App\Models\Employee  $employee
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Employee $employee)
+    public function update(StoreUpdateEmployeeRequest $request, Employee $employee)
     {
-        $request->validate([
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'email' => 'required',
-            'phone' => 'required',
-            'company' => 'required'
-        ]);
         $employee->update($request->all());
 
         return redirect()->route('employees.index')

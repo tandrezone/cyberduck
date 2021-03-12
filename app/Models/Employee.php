@@ -20,4 +20,9 @@ class Employee extends Model
         'phone',
         'company'
     ];
+
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
+    }
 }
