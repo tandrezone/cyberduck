@@ -64,7 +64,7 @@
     </div><!-- /.container-fluid -->
 @endsection
 
-@section('contentW')
+@section('contentHeader')
         <!-- Content Header (Page header) -->
         <div class="content-header">
             <div class="container-fluid">

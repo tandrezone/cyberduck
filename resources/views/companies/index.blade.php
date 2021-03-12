@@ -1,63 +1,86 @@
 @extends('admin_template')
 
+@section('contentHeader')
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">Companies</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="/">Home</a></li>
+                        <li class="breadcrumb-item active">Companies</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+@endsection
+
 @section('content')
     <div class="container-fluid">
-    <div class="row">
-        <div class="col-lg-12 margin-tb">
-            <div class="pull-left">
-                <h2>Companies</h2>
+        <div class="card">
+
+            @if ($message = Session::get('success'))
+                <div class="alert alert-success">
+                    <p>{{ $message }}</p>
+                </div>
+            @endif
+            <div class="card-header">
+                <div class="row-cols-5">
+                    <a class="btn btn-block bg-gradient-primary" href="{{ route('companies.create') }}" title="Create a company">Create a company</a>
+                </div>
             </div>
-            <div class="pull-right">
-                <a class="btn btn-success" href="{{ route('companies.create') }}" title="Create a company"> <i class="fas fa-plus-circle"></i>
-                </a>
+
+            <div class="card-body">
+                <table class="table table-striped">
+                    <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Logo</th>
+                        <th>Website</th>
+                        <th width="280px">Action</th>
+                    </tr>
+                    @foreach ($companies as $company)
+                        <tr>
+                            <td>{{ $company->id}}</td>
+                            <td>{{ $company->name }}</td>
+                            <td><img src="/storage/{{ $company->logo }}" height="25px"/></td>
+                            <td><a href="{{ $company->website }}">{{ $company->website }}</a></td>
+                            <td>
+                                <form action="{{ route('companies.destroy', $company->id) }}" method="POST">
+
+                                    <a href="{{ route('companies.show', $company->id) }}" title="show" class="btn btn-primary btn-sm">
+                                        <i class="fas fa-folder">
+                                        </i>
+                                    </a>
+
+                                    <a href="{{ route('companies.edit', $company->id) }}" class="btn btn-info btn-sm">
+                                        <i class="fas fa-pencil-alt">
+                                        </i>
+
+                                    </a>
+
+                                    @csrf
+                                    @method('DELETE')
+
+                                    <button type="submit" title="delete" class="btn btn-danger btn-sm">
+                                        <i class="fas fa-trash">
+                                        </i>
+
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                </table>
+            </div>
+            <div class="card-footer clearfix">
+                @include('utils.pagination')
             </div>
         </div>
-    </div>
-
-    @if ($message = Session::get('success'))
-        <div class="alert alert-success">
-            <p>{{ $message }}</p>
-        </div>
-    @endif
-
-    <table class="table table-bordered table-responsive-lg">
-        <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Logo</th>
-            <th>Website</th>
-            <th width="280px">Action</th>
-        </tr>
-        @foreach ($companies as $company)
-            <tr>
-                <td>{{ $company->id}}</td>
-                <td>{{ $company->name }}</td>
-                <td><img src="/storage/{{ $company->logo }}" width="100px"/></td>
-                <td><a href="{{ $company->website }}">{{ $company->website }}</a></td>
-                <td>
-                    <form action="{{ route('companies.destroy', $company->id) }}" method="POST">
-
-                        <a href="{{ route('companies.show', $company->id) }}" title="show">
-                            <i class="fas fa-eye text-success  fa-lg"></i>
-                        </a>
-
-                        <a href="{{ route('companies.edit', $company->id) }}">
-                            <i class="fas fa-edit  fa-lg"></i>
-
-                        </a>
-
-                        @csrf
-                        @method('DELETE')
-
-                        <button type="submit" title="delete" style="border: none; background-color:transparent;">
-                            <i class="fas fa-trash fa-lg text-danger"></i>
-
-                        </button>
-                    </form>
-                </td>
-            </tr>
-        @endforeach
-    </table>
     </div>
 
 @endsection

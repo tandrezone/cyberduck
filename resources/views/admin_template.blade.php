@@ -22,34 +22,25 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <div class="wrapper">
 
     <!-- Navbar -->
-    @include('header')
-    <!-- /.navbar -->
+@include('header')
+<!-- /.navbar -->
 
     <!-- Main Sidebar Container -->
-    @include('sidebar')
+@include('sidebar')
 
-    <!-- Content Wrapper. Contains page content -->
+<!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-        @yield('contentW')
-        <!-- /.content-header -->
+    @yield('contentHeader')
+    <!-- /.content-header -->
 
         <!-- Main content -->
-    <div class="content">
-        @yield('content')
-    </div>
+        <div class="content">
+            @yield('content')
+        </div>
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
 
-    <!-- Control Sidebar -->
-    <aside class="control-sidebar control-sidebar-dark">
-        <!-- Control sidebar content goes here -->
-        <div class="p-3">
-            <h5>Title</h5>
-            <p>Sidebar content</p>
-        </div>
-    </aside>
-    <!-- /.control-sidebar -->
 
     <!-- Main Footer -->
     @include('footer')
