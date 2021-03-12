@@ -29,13 +29,13 @@
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Logo:</strong>
-                {{ $company->logo }}
+                <img src="/storage/{{ $company->logo }}"/>
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Website:</strong>
-                {{ $company->website }}
+                <a href="{{ $company->website }}">{{ $company->website }}</a>
             </div>
         </div>
     </div>

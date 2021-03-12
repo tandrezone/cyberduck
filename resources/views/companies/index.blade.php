@@ -32,8 +32,8 @@
             <tr>
                 <td>{{ $company->id}}</td>
                 <td>{{ $company->name }}</td>
-                <td>{{ $company->logo }}</td>
-                <td>{{ $company->website }}</td>
+                <td><img src="/storage/{{ $company->logo }}" width="100px"/></td>
+                <td><a href="{{ $company->website }}">{{ $company->website }}</a></td>
                 <td>
                     <form action="{{ route('companies.destroy', $company->id) }}" method="POST">
 

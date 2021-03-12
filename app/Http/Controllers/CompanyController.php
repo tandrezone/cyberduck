@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreUpdateCompanyRequest;
 use App\Models\Company;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
+//@todo: refractor the upload component
 class CompanyController extends Controller
 {
     /**
@@ -14,10 +16,10 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        $companies = Company::latest()->paginate(5);
+        $companies = Company::latest()->paginate(10);
 
         return view('companies.index', compact('companies'))
-            ->with('i', (request()->input('page', 1) - 1) * 5);
+            ->with('i', (request()->input('page', 1) - 1) * 10);
     }
 
     /**
@@ -36,16 +38,23 @@ class CompanyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUpdateCompanyRequest $request)
     {
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required',
-            'logo' => 'required',
-            'website' => 'required'
-        ]);
+        $validated = $request->validated();
+        // Handle file Upload
+        if($request->hasFile('logo')) {
+            $extension = $request->file('logo')->getClientOriginalExtension();
+            $path = 'logos/'.md5(now()).'.'.$extension;
+            Storage::disk('public')->put($path, $request->file('logo')->get());
+        }
 
-        Company::create($request->all());
+        $company = new Company();
+        $company->name = $validated['name'];
+        $company->email = $validated['email'];
+        $company->logo = $path;
+        $company->website = $validated['website'];
+        $company->save();
+
 
         return redirect()->route('companies.index')
             ->with('success', 'Company created successfully.');
@@ -80,18 +89,27 @@ class CompanyController extends Controller
      * @param  \App\Models\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Company $company)
+    public function update(StoreUpdateCompanyRequest $request, Company $company)
     {
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required',
-            'logo' => 'required',
-            'website' => 'required'
-        ]);
-        $company->update($request->all());
+        $validated = $request->validated();
+        // Handle file Upload
+        if($request->hasFile('logo')) {
+            Storage::disk('public')->delete($company->logo);
+            $extension = $request->file('logo')->getClientOriginalExtension();
+            $path = 'logos/'.md5(now()).'.'.$extension;
+            Storage::disk('public')->put($path, $request->file('logo')->get());
+            $company->logo = $path;
+        }
+
+        $company->name = $validated['name'];
+        $company->email = $validated['email'];
+        $company->website = $validated['website'];
+
+        $company->save();
+
 
         return redirect()->route('companies.index')
-            ->with('success', 'Project updated successfully');
+            ->with('success', 'Company updated successfully');
     }
 
     /**

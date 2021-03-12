@@ -14,10 +14,10 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        $employee = Employee::latest()->paginate(5);
+        $employee = Employee::latest()->paginate(10);
 
         return view('employees.index', compact('employees'))
-            ->with('i', (request()->input('page', 1) - 1) * 5);
+            ->with('i', (request()->input('page', 1) - 1) * 10);
     }
 
     /**

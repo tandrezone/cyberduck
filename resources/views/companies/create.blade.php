@@ -22,33 +22,32 @@
             </ul>
         </div>
     @endif
-    <form action="{{ route('companies.store') }}" method="POST" >
+    <form action="{{ route('companies.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Name:</strong>
-                    <input type="text" name="name" class="form-control" placeholder="Name">
+                    <input type="text" name="name" class="form-control" placeholder="Name" maxlength="255">
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Email:</strong>
-                    <textarea class="form-control" style="height:50px" name="email"
-                              placeholder="Email"></textarea>
+                    <input type="email" name="email" class="form-control" placeholder="Email" maxlength="255">
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Logo:</strong>
-                    <input type="text" name="logo" class="form-control" placeholder="Logo">
+                    <input type="file" class="form-control-file" name="logo" accept="image/*">
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Website:</strong>
-                    <input type="text" name="website" class="form-control" placeholder="Website">
+                    <input type="url" name="website" class="form-control" placeholder="Website" maxlength="255">
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 text-center">
