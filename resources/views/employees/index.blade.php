@@ -22,14 +22,16 @@
 @section('content')
     <div class="container-fluid">
         <div class="card">
+
             @if ($message = Session::get('success'))
                 <div class="alert alert-success">
                     <p>{{ $message }}</p>
                 </div>
             @endif
-            <div class="pull-right">
-                <a class="btn btn-success" href="{{ route('employees.create') }}" title="Create a employee"> <i class="fas fa-plus-circle"></i>
-                </a>
+            <div class="card-header">
+                <div class="row-cols-5">
+                    <a class="btn btn-block bg-gradient-primary" href="{{ route('employees.create') }}" title="Create a employee">Create a employee</a>
+                </div>
             </div>
             <div class="card-body">
                 <table class="table table-bordered">
@@ -53,21 +55,20 @@
                             <td>
                                 <form action="{{ route('employees.destroy', $employee->id) }}" method="POST">
 
-                                    <a href="{{ route('employees.show', $employee->id) }}" title="show">
-                                        <i class="fas fa-eye text-success  fa-lg"></i>
+                                    <a href="{{ route('employees.show', $employee->id) }}" title="show" class="btn btn-primary btn-sm">
+                                        <i class="fas fa-folder"></i>
                                     </a>
 
-                                    <a href="{{ route('employees.edit', $employee->id) }}">
-                                        <i class="fas fa-edit  fa-lg"></i>
+                                    <a href="{{ route('employees.edit', $employee->id) }}" class="btn btn-info btn-sm">
+                                        <i class="fas fa-pencil-alt"></i>
 
                                     </a>
 
                                     @csrf
                                     @method('DELETE')
 
-                                    <button type="submit" title="delete" style="border: none; background-color:transparent;">
-                                        <i class="fas fa-trash fa-lg text-danger"></i>
-
+                                    <button type="submit" title="delete" class="btn btn-danger btn-sm">
+                                        <i class="fas fa-trash"></i>
                                     </button>
                                 </form>
                             </td>

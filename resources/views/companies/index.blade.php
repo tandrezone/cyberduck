@@ -22,7 +22,6 @@
 @section('content')
     <div class="container-fluid">
         <div class="card">
-
             @if ($message = Session::get('success'))
                 <div class="alert alert-success">
                     <p>{{ $message }}</p>
@@ -33,7 +32,6 @@
                     <a class="btn btn-block bg-gradient-primary" href="{{ route('companies.create') }}" title="Create a company">Create a company</a>
                 </div>
             </div>
-
             <div class="card-body">
                 <table class="table table-striped">
                     <tr>
