@@ -23,7 +23,9 @@
 @section('content')
     <div class="card">
         @include('utils.errors')
-
+        <div class="card-header">
+            {{ $company->name }}
+        </div>
         <form action="{{ route('companies.update', $company->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
@@ -44,7 +46,7 @@
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="form-group">
                             <label for="logo">Logo</label>
-                            <img src="/storage/{{ $company->logo }}" width="100px"/>
+                            @if($company->logo)<img src="/storage/{{ $company->logo }}" width="100px"/>@endif
                             <input type="file" id="logo" class="form-control-file" name="logo" accept="image/*">
                         </div>
                     </div>

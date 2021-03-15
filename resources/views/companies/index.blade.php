@@ -39,13 +39,13 @@
                         <th>Name</th>
                         <th>Logo</th>
                         <th>Website</th>
-                        <th width="280px">Action</th>
+                        <th>Action</th>
                     </tr>
                     @foreach ($companies as $company)
                         <tr>
                             <td>{{ $company->id}}</td>
                             <td>{{ $company->name }}</td>
-                            <td><img src="/storage/{{ $company->logo }}" height="25px"/></td>
+                            <td>@if($company->logo)<img src="/storage/{{ $company->logo }}" height="25px"/>@endif</td>
                             <td><a href="{{ $company->website }}">{{ $company->website }}</a></td>
                             <td>
                                 <form action="{{ route('companies.destroy', $company->id) }}" method="POST">
@@ -76,7 +76,9 @@
                 </table>
             </div>
             <div class="card-footer clearfix">
-                @include('utils.pagination')
+                <div class="pagination-sm m-0 float-right">
+                    {!! $companies->links() !!}
+                </div>
             </div>
         </div>
     </div>
