@@ -42,6 +42,7 @@ class CompanyController extends Controller
     {
         $validated = $request->validated();
         // Handle file Upload
+        $path = null;
         if($request->hasFile('logo')) {
             $extension = $request->file('logo')->getClientOriginalExtension();
             $path = 'logos/'.md5(now()).'.'.$extension;
@@ -93,6 +94,7 @@ class CompanyController extends Controller
     {
         $validated = $request->validated();
         // Handle file Upload
+        $path = null;
         if($request->hasFile('logo')) {
             Storage::disk('public')->delete($company->logo);
             $extension = $request->file('logo')->getClientOriginalExtension();

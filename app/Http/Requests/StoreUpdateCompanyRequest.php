@@ -25,9 +25,9 @@ class StoreUpdateCompanyRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'email' => 'email|max:255',
+            'email' => 'nullable|sometimes|email|max:255',
             'logo' => 'nullable|sometimes|image|dimensions:min_width=100,min_height=100',
-            'website' => 'url|max:255'
+            'website' => 'nullable|sometimes|url|max:255'
         ];
     }
 }
