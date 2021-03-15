@@ -20,16 +20,8 @@ Auth::routes(['register' => false]);
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/', function () {
-        return view('test');
+        return view('home');
     });
     Route::resource('employees', EmployeeController::class);
     Route::resource('companies', CompanyController::class);
 });
-
-
-/**
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/', function () {
-    return view('welcome');
-});
- * **/
