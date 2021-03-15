@@ -23,7 +23,7 @@
 @section('content')
     <div class="card">
         @include('utils.errors')
-
+        <div class="card-header">{{ $employee->first_name }} {{ $employee->last_name }}</div>
         <form action="{{ route('employees.update', $employee->id) }}" method="POST">
             @csrf
             @method('PUT')

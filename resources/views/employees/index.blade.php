@@ -42,7 +42,7 @@
                         <th>Email</th>
                         <th>Phone</th>
                         <th>Company</th>
-                        <th width="280px">Action</th>
+                        <th>Action</th>
                     </tr>
                     @foreach ($employees as $employee)
                         <tr>
@@ -77,7 +77,9 @@
                 </table>
             </div>
             <div class="card-footer clearfix">
-                @include('utils.pagination')
+                <div class="pagination-sm m-0 float-right">
+                    {!! $employees->links() !!}
+                </div>
             </div>
         </div>
     </div>

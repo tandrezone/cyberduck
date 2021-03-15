@@ -10,7 +10,7 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item"><a href="/">Home</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('employees.index') }}">Employees</a></li>
                         <li class="breadcrumb-item active">Show</li>
                     </ol>
@@ -22,36 +22,42 @@
 
 @section('content')
     <div class="card">
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>First Name:</strong>
-                    {{ $employee->first_name }}
+        <div class="card-header">{{ $employee->first_name }} {{ $employee->last_name }}</div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group">
+                        <strong>First Name:</strong>
+                        {{ $employee->first_name }}
+                    </div>
                 </div>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>Last Name:</strong>
-                    {{ $employee->last_name }}
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group">
+                        <strong>Last Name:</strong>
+                        {{ $employee->last_name }}
+                    </div>
                 </div>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>Email:</strong>
-                    {{ $employee->email }}
+                @if($employee->email)
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group">
+                        <strong>Email:</strong>
+                        {{ $employee->email }}
+                    </div>
                 </div>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>Phone:</strong>
-                    {{ $employee->phone }}
+                @endif
+                @if($employee->phone)
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group">
+                        <strong>Phone:</strong>
+                        {{ $employee->phone }}
+                    </div>
                 </div>
-            </div>
-
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>Company:</strong>
-                    {{ $employee->company->name }}
+                @endif
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group">
+                        <strong>Company:</strong>
+                        {{ $employee->company->name }}
+                    </div>
                 </div>
             </div>
         </div>
