@@ -6,7 +6,6 @@ use App\Http\Requests\StoreUpdateCompanyRequest;
 use App\Models\Company;
 use Illuminate\Support\Facades\Storage;
 
-//@todo: refractor the upload component
 class CompanyController extends Controller
 {
     /**
